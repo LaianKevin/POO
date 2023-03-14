@@ -1,0 +1,38 @@
+class Produto {
+  String nome;
+  double preco;
+
+  Produto(this.nome, this.preco);
+}
+
+class Item {
+  Produto produto;
+  int quantidade;
+
+  Item(this.produto, this.quantidade);
+
+  double getSubtotal() => produto.preco * quantidade;
+}
+
+class Venda {
+  List<Item> itens;
+
+  Venda(this.itens);
+
+  double getTotal() =>
+      itens.map((item) => item.getSubtotal()).reduce((a, b) => a + b);
+}
+
+void main() {
+  Produto arroz = Produto('Arroz', 5.50);
+  Produto feijao = Produto('Feijão', 7.20);
+  Produto leite = Produto('Leite', 3.50);
+
+  Item item1 = Item(arroz, 2);
+  Item item2 = Item(feijao, 1);
+  Item item3 = Item(leite, 3);
+
+  Venda venda = Venda([item1, item2, item3]);
+
+  print('Total da venda: R\$ ${venda.getTotal().toStringAsFixed(2)}');
+}
